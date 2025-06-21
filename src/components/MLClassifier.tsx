@@ -101,49 +101,49 @@ export const MLClassifier = () => {
         <CardContent>
           <div className="bg-black/50 p-4 rounded-lg text-sm font-mono overflow-x-auto">
             <pre className="text-gray-300">
-<span className="text-green-400"># Import required libraries</span>
-<span className="text-blue-400">from</span> sklearn.datasets <span className="text-blue-400">import</span> load_iris
-<span className="text-blue-400">from</span> sklearn.model_selection <span className="text-blue-400">import</span> train_test_split
-<span className="text-blue-400">from</span> sklearn.tree <span className="text-blue-400">import</span> DecisionTreeClassifier
-<span className="text-blue-400">from</span> sklearn.metrics <span className="text-blue-400">import</span> accuracy_score, precision_recall_fscore_support
-<span className="text-blue-400">import</span> pandas <span className="text-blue-400">as</span> pd
-<span className="text-blue-400">import</span> numpy <span className="text-blue-400">as</span> np
+{`# Import required libraries
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score, precision_recall_fscore_support
+import pandas as pd
+import numpy as np
 
-<span className="text-green-400"># Load the Iris dataset</span>
-<span className="text-yellow-400">iris</span> = load_iris()
-<span className="text-yellow-400">X</span>, <span className="text-yellow-400">y</span> = iris.data, iris.target
+# Load the Iris dataset
+iris = load_iris()
+X, y = iris.data, iris.target
 
-<span className="text-green-400"># Create DataFrame for better visualization</span>
-<span className="text-yellow-400">df</span> = pd.DataFrame(X, columns=iris.feature_names)
-<span className="text-yellow-400">df</span>[<span className="text-red-400">'species'</span>] = [iris.target_names[i] <span className="text-blue-400">for</span> i <span className="text-blue-400">in</span> y]
+# Create DataFrame for better visualization
+df = pd.DataFrame(X, columns=iris.feature_names)
+df['species'] = [iris.target_names[i] for i in y]
 
-<span className="text-green-400"># Check for missing values (Iris dataset is clean)</span>
-<span className="text-blue-400">print</span>(<span className="text-red-400">f"Missing values: </span>{df.isnull().sum().sum()}<span className="text-red-400">"</span>)
+# Check for missing values (Iris dataset is clean)
+print(f"Missing values: {df.isnull().sum().sum()}")
 
-<span className="text-green-400"># Split the dataset</span>
-<span className="text-yellow-400">X_train</span>, <span className="text-yellow-400">X_test</span>, <span className="text-yellow-400">y_train</span>, <span className="text-yellow-400">y_test</span> = train_test_split(
-    X, y, test_size=<span className="text-purple-400">0.2</span>, random_state=<span className="text-purple-400">42</span>, stratify=y
+# Split the dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
 )
 
-<span className="text-green-400"># Initialize and train Decision Tree Classifier</span>
-<span className="text-yellow-400">clf</span> = DecisionTreeClassifier(
-    max_depth=<span className="text-purple-400">3</span>,           <span className="text-green-400"># Prevent overfitting</span>
-    min_samples_split=<span className="text-purple-400">5</span>,  <span className="text-green-400"># Minimum samples to split</span>
-    random_state=<span className="text-purple-400">42</span>       <span className="text-green-400"># Reproducible results</span>
+# Initialize and train Decision Tree Classifier
+clf = DecisionTreeClassifier(
+    max_depth=3,           # Prevent overfitting
+    min_samples_split=5,   # Minimum samples to split
+    random_state=42        # Reproducible results
 )
 
-<span className="text-yellow-400">clf</span>.fit(X_train, y_train)
+clf.fit(X_train, y_train)
 
-<span className="text-green-400"># Make predictions</span>
-<span className="text-yellow-400">y_pred</span> = clf.predict(X_test)
+# Make predictions
+y_pred = clf.predict(X_test)
 
-<span className="text-green-400"># Calculate metrics</span>
-<span className="text-yellow-400">accuracy</span> = accuracy_score(y_test, y_pred)
-<span className="text-yellow-400">precision</span>, <span className="text-yellow-400">recall</span>, <span className="text-yellow-400">f1</span>, _ = precision_recall_fscore_support(y_test, y_pred)
+# Calculate metrics
+accuracy = accuracy_score(y_test, y_pred)
+precision, recall, f1, _ = precision_recall_fscore_support(y_test, y_pred)
 
-<span className="text-blue-400">print</span>(<span className="text-red-400">f"Accuracy: </span>{accuracy:<span className="text-purple-400">.3f</span>}<span className="text-red-400">"</span>)
-<span className="text-blue-400">for</span> i, species <span className="text-blue-400">in</span> <span className="text-blue-400">enumerate</span>(iris.target_names):
-    <span className="text-blue-400">print</span>(<span className="text-red-400">f"</span>{species}<span className="text-red-400"> - Precision: </span>{precision[i]:<span className="text-purple-400">.3f</span>}<span className="text-red-400">, Recall: </span>{recall[i]:<span className="text-purple-400">.3f</span>}<span className="text-red-400">, F1: </span>{f1[i]:<span className="text-purple-400">.3f</span>}<span className="text-red-400">"</span>)
+print(f"Accuracy: {accuracy:.3f}")
+for i, species in enumerate(iris.target_names):
+    print(f"{species} - Precision: {precision[i]:.3f}, Recall: {recall[i]:.3f}, F1: {f1[i]:.3f}")`}
             </pre>
           </div>
         </CardContent>
@@ -223,13 +223,13 @@ export const MLClassifier = () => {
                           <div className="font-medium text-purple-300 capitalize">{species}</div>
                           <div className="grid grid-cols-3 gap-2 text-xs">
                             <div>
-                              <span className="text-gray-400">P:</span> {(results.precision[species] * 100).toFixed(0)}%
+                              <span className="text-gray-400">P:</span> {(results.precision[species as keyof typeof results.precision] * 100).toFixed(0)}%
                             </div>
                             <div>
-                              <span className="text-gray-400">R:</span> {(results.recall[species] * 100).toFixed(0)}%
+                              <span className="text-gray-400">R:</span> {(results.recall[species as keyof typeof results.recall] * 100).toFixed(0)}%
                             </div>
                             <div>
-                              <span className="text-gray-400">F1:</span> {(results.f1Score[species] * 100).toFixed(0)}%
+                              <span className="text-gray-400">F1:</span> {(results.f1Score[species as keyof typeof results.f1Score] * 100).toFixed(0)}%
                             </div>
                           </div>
                         </div>

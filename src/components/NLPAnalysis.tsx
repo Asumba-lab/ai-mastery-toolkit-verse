@@ -117,79 +117,79 @@ export const NLPAnalysis = () => {
         <CardContent>
           <div className="bg-black/50 p-4 rounded-lg text-sm font-mono overflow-x-auto">
             <pre className="text-gray-300">
-<span className="text-green-400"># Import spaCy and required libraries</span>
-<span className="text-blue-400">import</span> spacy
-<span className="text-blue-400">import</span> pandas <span className="text-blue-400">as</span> pd
-<span className="text-blue-400">from</span> collections <span className="text-blue-400">import</span> Counter
+{`# Import spaCy and required libraries
+import spacy
+import pandas as pd
+from collections import Counter
 
-<span className="text-green-400"># Load spaCy English model with NER capabilities</span>
-<span className="text-yellow-400">nlp</span> = spacy.load(<span className="text-red-400">'en_core_web_sm'</span>)
+# Load spaCy English model with NER capabilities
+nlp = spacy.load('en_core_web_sm')
 
-<span className="text-green-400"># Define sentiment analysis rules</span>
-<span className="text-blue-400">def</span> <span className="text-yellow-400">analyze_sentiment</span>(text):
-    <span className="text-green-400">"""Rule-based sentiment analysis"""</span>
-    <span className="text-yellow-400">positive_words</span> = [<span className="text-red-400">'amazing'</span>, <span className="text-red-400">'great'</span>, <span className="text-red-400">'excellent'</span>, <span className="text-red-400">'love'</span>, <span className="text-red-400">'recommend'</span>, 
-                        <span className="text-red-400">'perfect'</span>, <span className="text-red-400">'fantastic'</span>, <span className="text-red-400">'awesome'</span>, <span className="text-red-400">'incredible'</span>]
+# Define sentiment analysis rules
+def analyze_sentiment(text):
+    """Rule-based sentiment analysis"""
+    positive_words = ['amazing', 'great', 'excellent', 'love', 'recommend', 
+                        'perfect', 'fantastic', 'awesome', 'incredible']
     
-    <span className="text-yellow-400">negative_words</span> = [<span className="text-red-400">'terrible'</span>, <span className="text-red-400">'awful'</span>, <span className="text-red-400">'bad'</span>, <span className="text-red-400">'hate'</span>, <span className="text-red-400">'disappointing'</span>,
-                        <span className="text-red-400">'useless'</span>, <span className="text-red-400">'broken'</span>, <span className="text-red-400">'worst'</span>, <span className="text-red-400">'poor'</span>]
+    negative_words = ['terrible', 'awful', 'bad', 'hate', 'disappointing',
+                        'useless', 'broken', 'worst', 'poor']
     
-    <span className="text-yellow-400">text_lower</span> = text.lower()
-    <span className="text-yellow-400">pos_count</span> = <span className="text-blue-400">sum</span>(<span className="text-purple-400">1</span> <span className="text-blue-400">for</span> word <span className="text-blue-400">in</span> positive_words <span className="text-blue-400">if</span> word <span className="text-blue-400">in</span> text_lower)
-    <span className="text-yellow-400">neg_count</span> = <span className="text-blue-400">sum</span>(<span className="text-purple-400">1</span> <span className="text-blue-400">for</span> word <span className="text-blue-400">in</span> negative_words <span className="text-blue-4000">if</span> word <span className="text-blue-400">in</span> text_lower)
+    text_lower = text.lower()
+    pos_count = sum(1 for word in positive_words if word in text_lower)
+    neg_count = sum(1 for word in negative_words if word in text_lower)
     
-    <span className="text-blue-400">if</span> pos_count > neg_count:
-        <span className="text-blue-400">return</span> <span className="text-red-400">'POSITIVE'</span>, pos_count / (pos_count + neg_count + <span className="text-purple-400">1</span>)
-    <span className="text-blue-400">elif</span> neg_count > pos_count:
-        <span className="text-blue-400">return</span> <span className="text-red-400">'NEGATIVE'</span>, neg_count / (pos_count + neg_count + <span className="text-purple-400">1</span>)
-    <span className="text-blue-400">else</span>:
-        <span className="text-blue-400">return</span> <span className="text-red-400">'NEUTRAL'</span>, <span className="text-purple-400">0.5</span>
+    if pos_count > neg_count:
+        return 'POSITIVE', pos_count / (pos_count + neg_count + 1)
+    elif neg_count > pos_count:
+        return 'NEGATIVE', neg_count / (pos_count + neg_count + 1)
+    else:
+        return 'NEUTRAL', 0.5
 
-<span className="text-green-400"># Process Amazon reviews dataset</span>
-<span className="text-blue-400">def</span> <span className="text-yellow-400">process_reviews</span>(reviews):
-    <span className="text-yellow-400">results</span> = []
+# Process Amazon reviews dataset
+def process_reviews(reviews):
+    results = []
     
-    <span className="text-blue-400">for</span> review <span className="text-blue-400">in</span> reviews:
-        <span className="text-green-400"># Process text with spaCy NLP pipeline</span>
-        <span className="text-yellow-400">doc</span> = nlp(review)
+    for review in reviews:
+        # Process text with spaCy NLP pipeline
+        doc = nlp(review)
         
-        <span className="text-green-400"># Extract named entities</span>
-        <span className="text-yellow-400">entities</span> = []
-        <span className="text-blue-400">for</span> ent <span className="text-blue-400">in</span> doc.ents:
-            <span className="text-blue-400">if</span> ent.label_ <span className="text-blue-400">in</span> [<span className="text-red-400">'PRODUCT'</span>, <span className="text-red-400">'ORG'</span>, <span className="text-red-400">'DATE'</span>, <span className="text-red-400">'MONEY'</span>, <span className="text-red-400">'PERSON'</span>]:
-                <span className="text-yellow-400">entities</span>.append({
-                    <span className="text-red-400">'text'</span>: ent.text,
-                    <span className="text-red-400">'label'</span>: ent.label_,
-                    <span className="text-red-400">'start'</span>: ent.start_char,
-                    <span className="text-red-400">'end'</span>: ent.end_char
+        # Extract named entities
+        entities = []
+        for ent in doc.ents:
+            if ent.label_ in ['PRODUCT', 'ORG', 'DATE', 'MONEY', 'PERSON']:
+                entities.append({
+                    'text': ent.text,
+                    'label': ent.label_,
+                    'start': ent.start_char,
+                    'end': ent.end_char
                 })
         
-        <span className="text-green-400"># Perform sentiment analysis</span>
-        <span className="text-yellow-400">sentiment</span>, <span className="text-yellow-400">confidence</span> = analyze_sentiment(review)
+        # Perform sentiment analysis
+        sentiment, confidence = analyze_sentiment(review)
         
-        <span className="text-yellow-400">results</span>.append({
-            <span className="text-red-400">'review'</span>: review,
-            <span className="text-red-400">'entities'</span>: entities,
-            <span className="text-red-400">'sentiment'</span>: sentiment,
-            <span className="text-red-400">'confidence'</span>: confidence
+        results.append({
+            'review': review,
+            'entities': entities,
+            'sentiment': sentiment,
+            'confidence': confidence
         })
     
-    <span className="text-blue-400">return</span> results
+    return results
 
-<span className="text-green-400"># Example usage</span>
-<span className="text-yellow-400">sample_reviews</span> = [
-    <span className="text-red-400">"This Amazon Echo Dot is amazing! Great sound quality."</span>,
-    <span className="text-red-400">"Samsung Galaxy S21 is disappointing. Battery life is poor."</span>
+# Example usage
+sample_reviews = [
+    "This Amazon Echo Dot is amazing! Great sound quality.",
+    "Samsung Galaxy S21 is disappointing. Battery life is poor."
 ]
 
-<span className="text-yellow-400">analysis_results</span> = process_reviews(sample_reviews)
+analysis_results = process_reviews(sample_reviews)
 
-<span className="text-green-400"># Display results</span>
-<span className="text-blue-400">for</span> result <span className="text-blue-400">in</span> analysis_results:
-    <span className="text-blue-400">print</span>(<span className="text-red-400">f"Review: </span>{result[<span className="text-red-400">'review'</span>]}<span className="text-red-400">"</span>)
-    <span className="text-blue-400">print</span>(<span className="text-red-400">f"Entities: </span>{[e[<span className="text-red-400">'text'</span>] <span className="text-blue-400">for</span> e <span className="text-blue-400">in</span> result[<span className="text-red-400">'entities'</span>]]}<span className="text-red-400">"</span>)
-    <span className="text-blue-400">print</span>(<span className="text-red-400">f"Sentiment: </span>{result[<span className="text-red-400">'sentiment'</span>]}<span className="text-red-400"> (</span>{result[<span className="text-red-400">'confidence'</span>]:<span className="text-purple-400">.2f</span>}<span className="text-red-400">)"</span>)
-    <span className="text-blue-400">print</span>(<span className="text-red-400">"-"</span> * <span className="text-purple-400">50</span>)
+# Display results
+for result in analysis_results:
+    print(f"Review: {result['review']}")
+    print(f"Entities: {[e['text'] for e in result['entities']]}")
+    print(f"Sentiment: {result['sentiment']} ({result['confidence']:.2f})")
+    print("-" * 50)`}
             </pre>
           </div>
         </CardContent>
