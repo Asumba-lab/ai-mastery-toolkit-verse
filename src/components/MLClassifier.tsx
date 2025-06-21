@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -35,23 +34,23 @@ export const MLClassifier = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Header */}
-      <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+      <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/15 transition-all duration-300">
+        <CardHeader className="p-4 sm:p-6">
+          <CardTitle className="flex flex-col sm:flex-row sm:items-center gap-2 text-lg sm:text-xl">
             <Database className="h-5 w-5 text-blue-400" />
             Task 1: Classical Machine Learning with Scikit-learn
           </CardTitle>
-          <CardDescription className="text-gray-300">
+          <CardDescription className="text-gray-300 text-sm sm:text-base">
             Iris Species Classification using Decision Tree Classifier
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="grid md:grid-cols-2 gap-6">
+        <CardContent className="p-4 sm:p-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
             <div className="space-y-3">
-              <h4 className="font-semibold text-blue-300">Dataset Overview</h4>
-              <div className="bg-black/30 p-4 rounded text-sm">
+              <h4 className="font-semibold text-blue-300 text-sm sm:text-base">Dataset Overview</h4>
+              <div className="bg-black/30 p-3 sm:p-4 rounded text-xs sm:text-sm">
                 <ul className="space-y-1 text-gray-300">
                   <li>• <strong>Dataset:</strong> Fisher's Iris Dataset (1936)</li>
                   <li>• <strong>Samples:</strong> 150 flowers</li>
@@ -62,27 +61,27 @@ export const MLClassifier = () => {
               </div>
             </div>
             <div className="space-y-3">
-              <h4 className="font-semibold text-green-300">Implementation Steps</h4>
+              <h4 className="font-semibold text-green-300 text-sm sm:text-base">Implementation Steps</h4>
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                  <Badge className="bg-green-600/50">✓</Badge>
-                  <span className="text-sm">Load and explore dataset</span>
+                  <Badge className="bg-green-600/50 hover:bg-green-600/70 transition-colors duration-200">✓</Badge>
+                  <span className="text-xs sm:text-sm">Load and explore dataset</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Badge className="bg-green-600/50">✓</Badge>
-                  <span className="text-sm">Handle missing values</span>
+                  <Badge className="bg-green-600/50 hover:bg-green-600/70 transition-colors duration-200">✓</Badge>
+                  <span className="text-xs sm:text-sm">Handle missing values</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Badge className="bg-green-600/50">✓</Badge>
-                  <span className="text-sm">Encode categorical labels</span>
+                  <Badge className="bg-green-600/50 hover:bg-green-600/70 transition-colors duration-200">✓</Badge>
+                  <span className="text-xs sm:text-sm">Encode categorical labels</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Badge className="bg-green-600/50">✓</Badge>
-                  <span className="text-sm">Train Decision Tree</span>
+                  <Badge className="bg-green-600/50 hover:bg-green-600/70 transition-colors duration-200">✓</Badge>
+                  <span className="text-xs sm:text-sm">Train Decision Tree</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Badge className="bg-blue-600/50">⏳</Badge>
-                  <span className="text-sm">Evaluate performance</span>
+                  <Badge className="bg-blue-600/50 hover:bg-blue-600/70 transition-colors duration-200">⏳</Badge>
+                  <span className="text-xs sm:text-sm">Evaluate performance</span>
                 </div>
               </div>
             </div>
@@ -91,15 +90,15 @@ export const MLClassifier = () => {
       </Card>
 
       {/* Code Implementation */}
-      <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+      <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/15 transition-all duration-300">
+        <CardHeader className="p-4 sm:p-6">
+          <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
             <Settings className="h-5 w-5 text-purple-400" />
             Code Implementation
           </CardTitle>
         </CardHeader>
-        <CardContent>
-          <div className="bg-black/50 p-4 rounded-lg text-sm font-mono overflow-x-auto">
+        <CardContent className="p-4 sm:p-6">
+          <div className="bg-black/50 p-3 sm:p-4 rounded-lg text-xs sm:text-sm font-mono overflow-x-auto">
             <pre className="text-gray-300">
 {`# Import required libraries
 from sklearn.datasets import load_iris
@@ -150,19 +149,19 @@ for i, species in enumerate(iris.target_names):
       </Card>
 
       {/* Training Section */}
-      <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+      <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/15 transition-all duration-300">
+        <CardHeader className="p-4 sm:p-6">
+          <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
             <Play className="h-5 w-5 text-green-400" />
             Model Training & Evaluation
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-4 p-4 sm:p-6">
           {!isCompleted && (
             <Button
               onClick={handleTraining}
               disabled={isTraining}
-              className="w-full bg-green-600 hover:bg-green-700"
+              className="w-full bg-green-600 hover:bg-green-700 transition-all duration-200 py-2 sm:py-3 text-sm sm:text-base"
             >
               {isTraining ? "Training Model..." : "Start Training"}
             </Button>
@@ -170,7 +169,7 @@ for i, species in enumerate(iris.target_names):
 
           {isTraining && (
             <div className="space-y-2">
-              <div className="flex justify-between text-sm">
+              <div className="flex justify-between text-xs sm:text-sm">
                 <span>Training Progress</span>
                 <span>{trainingProgress}%</span>
               </div>
@@ -179,9 +178,9 @@ for i, species in enumerate(iris.target_names):
           )}
 
           {isCompleted && (
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               <div className="text-center">
-                <Badge className="bg-green-600 text-lg px-4 py-2">
+                <Badge className="bg-green-600 text-sm sm:text-lg px-3 sm:px-4 py-2 hover:bg-green-700 transition-colors duration-200">
                   Training Complete! ✨
                 </Badge>
               </div>
@@ -189,35 +188,35 @@ for i, species in enumerate(iris.target_names):
               <Separator className="bg-white/20" />
 
               {/* Results */}
-              <div className="grid md:grid-cols-2 gap-6">
-                <Card className="bg-black/30 border-white/10">
-                  <CardHeader>
-                    <CardTitle className="text-lg flex items-center gap-2">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                <Card className="bg-black/30 border-white/10 hover:bg-black/40 transition-all duration-300">
+                  <CardHeader className="p-4">
+                    <CardTitle className="text-base sm:text-lg flex items-center gap-2">
                       <BarChart3 className="h-4 w-4 text-blue-400" />
                       Overall Performance
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="p-4">
                     <div className="space-y-3">
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-300">Accuracy</span>
-                        <Badge className="bg-green-600">
+                        <span className="text-gray-300 text-sm sm:text-base">Accuracy</span>
+                        <Badge className="bg-green-600 hover:bg-green-700 transition-colors duration-200">
                           {(results.accuracy * 100).toFixed(1)}%
                         </Badge>
                       </div>
-                      <div className="text-sm text-gray-400">
+                      <div className="text-xs sm:text-sm text-gray-400">
                         Model correctly classified {Math.round(results.accuracy * 30)} out of 30 test samples
                       </div>
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card className="bg-black/30 border-white/10">
-                  <CardHeader>
-                    <CardTitle className="text-lg">Per-Class Metrics</CardTitle>
+                <Card className="bg-black/30 border-white/10 hover:bg-black/40 transition-all duration-300">
+                  <CardHeader className="p-4">
+                    <CardTitle className="text-base sm:text-lg">Per-Class Metrics</CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3 text-sm">
+                  <CardContent className="p-4">
+                    <div className="space-y-3 text-xs sm:text-sm">
                       {Object.keys(results.precision).map((species) => (
                         <div key={species} className="space-y-1">
                           <div className="font-medium text-purple-300 capitalize">{species}</div>
@@ -240,50 +239,50 @@ for i, species in enumerate(iris.target_names):
               </div>
 
               {/* Feature Importance */}
-              <Card className="bg-black/30 border-white/10">
-                <CardHeader>
-                  <CardTitle className="text-lg">Feature Importance Analysis</CardTitle>
+              <Card className="bg-black/30 border-white/10 hover:bg-black/40 transition-all duration-300">
+                <CardHeader className="p-4">
+                  <CardTitle className="text-base sm:text-lg">Feature Importance Analysis</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-4">
                   <div className="space-y-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-300">Petal Length</span>
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                      <span className="text-gray-300 text-sm">Petal Length</span>
                       <div className="flex items-center gap-2">
-                        <div className="w-32 bg-gray-700 rounded-full h-2">
-                          <div className="bg-purple-500 h-2 rounded-full" style={{width: '85%'}}></div>
+                        <div className="w-24 sm:w-32 bg-gray-700 rounded-full h-2">
+                          <div className="bg-purple-500 h-2 rounded-full transition-all duration-500" style={{width: '85%'}}></div>
                         </div>
-                        <span className="text-sm">0.85</span>
+                        <span className="text-xs sm:text-sm">0.85</span>
                       </div>
                     </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-300">Petal Width</span>
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                      <span className="text-gray-300 text-sm">Petal Width</span>
                       <div className="flex items-center gap-2">
-                        <div className="w-32 bg-gray-700 rounded-full h-2">
-                          <div className="bg-blue-500 h-2 rounded-full" style={{width: '72%'}}></div>
+                        <div className="w-24 sm:w-32 bg-gray-700 rounded-full h-2">
+                          <div className="bg-blue-500 h-2 rounded-full transition-all duration-500" style={{width: '72%'}}></div>
                         </div>
-                        <span className="text-sm">0.72</span>
+                        <span className="text-xs sm:text-sm">0.72</span>
                       </div>
                     </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-300">Sepal Length</span>
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                      <span className="text-gray-300 text-sm">Sepal Length</span>
                       <div className="flex items-center gap-2">
-                        <div className="w-32 bg-gray-700 rounded-full h-2">
-                          <div className="bg-green-500 h-2 rounded-full" style={{width: '28%'}}></div>
+                        <div className="w-24 sm:w-32 bg-gray-700 rounded-full h-2">
+                          <div className="bg-green-500 h-2 rounded-full transition-all duration-500" style={{width: '28%'}}></div>
                         </div>
-                        <span className="text-sm">0.28</span>
+                        <span className="text-xs sm:text-sm">0.28</span>
                       </div>
                     </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-300">Sepal Width</span>
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                      <span className="text-gray-300 text-sm">Sepal Width</span>
                       <div className="flex items-center gap-2">
-                        <div className="w-32 bg-gray-700 rounded-full h-2">
-                          <div className="bg-yellow-500 h-2 rounded-full" style={{width: '15%'}}></div>
+                        <div className="w-24 sm:w-32 bg-gray-700 rounded-full h-2">
+                          <div className="bg-yellow-500 h-2 rounded-full transition-all duration-500" style={{width: '15%'}}></div>
                         </div>
-                        <span className="text-sm">0.15</span>
+                        <span className="text-xs sm:text-sm">0.15</span>
                       </div>
                     </div>
                   </div>
-                  <div className="mt-4 text-sm text-gray-400">
+                  <div className="mt-4 text-xs sm:text-sm text-gray-400">
                     The Decision Tree relies heavily on petal measurements for classification, 
                     which aligns with botanical knowledge about iris species differentiation.
                   </div>
