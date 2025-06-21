@@ -95,7 +95,7 @@ export const DeepLearning = () => {
               </h4>
               <div className="bg-black/30 p-3 rounded text-sm">
                 <ul className="space-y-1 text-gray-300">
-                  <li>• Goal: >95% accuracy</li>
+                  <li>• Goal: &gt;95% accuracy</li>
                   <li>• Optimizer: Adam</li>
                   <li>• Loss: SparseCategorical</li>
                   <li>• Epochs: 10</li>
@@ -117,62 +117,62 @@ export const DeepLearning = () => {
         <CardContent>
           <div className="bg-black/50 p-4 rounded-lg text-sm font-mono overflow-x-auto">
             <pre className="text-gray-300">
-<span className="text-green-400"># Import TensorFlow and required libraries</span>
-<span className="text-blue-400">import</span> tensorflow <span className="text-blue-400">as</span> tf
-<span className="text-blue-400">from</span> tensorflow <span className="text-blue-400">import</span> keras
-<span className="text-blue-400">import</span> numpy <span className="text-blue-400">as</span> np
-<span className="text-blue-400">import</span> matplotlib.pyplot <span className="text-blue-400">as</span> plt
+{`# Import TensorFlow and required libraries
+import tensorflow as tf
+from tensorflow import keras
+import numpy as np
+import matplotlib.pyplot as plt
 
-<span className="text-green-400"># Load and preprocess MNIST dataset</span>
-<span className="text-yellow-400">(x_train, y_train), (x_test, y_test)</span> = keras.datasets.mnist.load_data()
+# Load and preprocess MNIST dataset
+(x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
 
-<span className="text-green-400"># Normalize pixel values to [0, 1] range</span>
-<span className="text-yellow-400">x_train</span> = x_train.astype(<span className="text-red-400">'float32'</span>) / <span className="text-purple-400">255.0</span>
-<span className="text-yellow-400">x_test</span> = x_test.astype(<span className="text-red-400">'float32'</span>) / <span className="text-purple-400">255.0</span>
+# Normalize pixel values to [0, 1] range
+x_train = x_train.astype('float32') / 255.0
+x_test = x_test.astype('float32') / 255.0
 
-<span className="text-green-400"># Reshape for CNN (add channel dimension)</span>
-<span className="text-yellow-400">x_train</span> = x_train.reshape(x_train.shape[<span className="text-purple-400">0</span>], <span className="text-purple-400">28</span>, <span className="text-purple-400">28</span>, <span className="text-purple-400">1</span>)
-<span className="text-yellow-400">x_test</span> = x_test.reshape(x_test.shape[<span className="text-purple-400">0</span>], <span className="text-purple-400">28</span>, <span className="text-purple-400">28</span>, <span className="text-purple-400">1</span>)
+# Reshape for CNN (add channel dimension)
+x_train = x_train.reshape(x_train.shape[0], 28, 28, 1)
+x_test = x_test.reshape(x_test.shape[0], 28, 28, 1)
 
-<span className="text-green-400"># Build CNN model architecture</span>
-<span className="text-yellow-400">model</span> = keras.Sequential([
-    <span className="text-green-400"># First convolutional block</span>
-    keras.layers.Conv2D(<span className="text-purple-400">32</span>, (<span className="text-purple-400">3</span>, <span className="text-purple-400">3</span>), activation=<span className="text-red-400">'relu'</span>, input_shape=(<span className="text-purple-400">28</span>, <span className="text-purple-400">28</span>, <span className="text-purple-400">1</span>)),
-    keras.layers.MaxPooling2D((<span className="text-purple-400">2</span>, <span className="text-purple-400">2</span>)),
+# Build CNN model architecture
+model = keras.Sequential([
+    # First convolutional block
+    keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1)),
+    keras.layers.MaxPooling2D((2, 2)),
     
-    <span className="text-green-400"># Second convolutional block</span>
-    keras.layers.Conv2D(<span className="text-purple-400">64</span>, (<span className="text-purple-400">3</span>, <span className="text-purple-400">3</span>), activation=<span className="text-red-400">'relu'</span>),
-    keras.layers.MaxPooling2D((<span className="text-purple-400">2</span>, <span className="text-purple-400">2</span>)),
+    # Second convolutional block
+    keras.layers.Conv2D(64, (3, 3), activation='relu'),
+    keras.layers.MaxPooling2D((2, 2)),
     
-    <span className="text-green-400"># Flatten and dense layers</span>
+    # Flatten and dense layers
     keras.layers.Flatten(),
-    keras.layers.Dropout(<span className="text-purple-400">0.5</span>),  <span className="text-green-400"># Prevent overfitting</span>
-    keras.layers.Dense(<span className="text-purple-400">128</span>, activation=<span className="text-red-400">'relu'</span>),
-    keras.layers.Dense(<span className="text-purple-400">10</span>, activation=<span className="text-red-400">'softmax'</span>)  <span className="text-green-400"># 10 digit classes</span>
+    keras.layers.Dropout(0.5),  # Prevent overfitting
+    keras.layers.Dense(128, activation='relu'),
+    keras.layers.Dense(10, activation='softmax')  # 10 digit classes
 ])
 
-<span className="text-green-400"># Compile model with optimizer and loss function</span>
-<span className="text-yellow-400">model</span>.compile(
-    optimizer=<span className="text-red-400">'adam'</span>,
-    loss=<span className="text-red-400">'sparse_categorical_crossentropy'</span>,
-    metrics=[<span className="text-red-400">'accuracy'</span>]
+# Compile model with optimizer and loss function
+model.compile(
+    optimizer='adam',
+    loss='sparse_categorical_crossentropy',
+    metrics=['accuracy']
 )
 
-<span className="text-green-400"># Display model architecture</span>
-<span className="text-yellow-400">model</span>.summary()
+# Display model architecture
+model.summary()
 
-<span className="text-green-400"># Train the model</span>
-<span className="text-yellow-400">history</span> = model.fit(
+# Train the model
+history = model.fit(
     x_train, y_train,
-    batch_size=<span className="text-purple-400">128</span>,
-    epochs=<span className="text-purple-400">10</span>,
+    batch_size=128,
+    epochs=10,
     validation_data=(x_test, y_test),
-    verbose=<span className="text-purple-400">1</span>
+    verbose=1
 )
 
-<span className="text-green-400"># Evaluate model performance</span>
-<span className="text-yellow-400">test_loss</span>, <span className="text-yellow-400">test_accuracy</span> = model.evaluate(x_test, y_test, verbose=<span className="text-purple-400">0</span>)
-<span className="text-blue-400">print</span>(<span className="text-red-400">f"Test Accuracy: </span>{test_accuracy:<span className="text-purple-400">.4f</span>}<span className="text-red-400"> (</span>{test_accuracy*<span className="text-purple-400">100</span>:<span className="text-purple-400">.2f</span>}<span className="text-red-400">%)"</span>)
+# Evaluate model performance
+test_loss, test_accuracy = model.evaluate(x_test, y_test, verbose=0)
+print(f"Test Accuracy: {test_accuracy:.4f} ({test_accuracy*100:.2f}%)")`}
             </pre>
           </div>
         </CardContent>
