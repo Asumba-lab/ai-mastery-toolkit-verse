@@ -201,4 +201,4 @@ For custom deployments, the project is compatible with:
 
 ---
 
-**Built with ❤️ for AI Education** | **Powered by Modern Web Technologies**
+**live server link: https://ai-mastery-toolkit-verse.lovable.app/
